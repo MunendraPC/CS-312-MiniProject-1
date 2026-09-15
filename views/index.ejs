@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog App</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+    <h1>My Blog</h1>
+
+    <h2>Create a Post</h2>
+
+    <form action="/posts" method="POST">
+
+        <label>Your Name:</label>
+        <br>
+        <input type="text" name="creator" required>
+
+        <br><br>
+
+        <label>Blog Title:</label>
+        <br>
+        <input type="text" name="title" required>
+
+        <br><br>
+        
+        <label>Category:</label>
+        <br>
+
+        <select name="category" required>
+            <option value="Tech">Tech</option>
+            <option value="Lifestyle">Lifestyle</option>
+            <option value="Education">Education</option>
+            <option value="Motorcycle">Motorcycle</option>
+        </select>
+
+        <br><br>        
+        <label>Blog:</label>
+        <br>
+        <textarea name="content" rows="6" cols="40" required></textarea>
+
+        <br><br>
+
+        <button type="submit">Create Post</button>
+
+    </form>
+
+    <hr>
+    <form action="/" method="GET">
+
+        <label>Filter by Category:</label>
+
+        <select name="category">
+            <option value="All">All</option>
+            <option value="Tech">Tech</option>
+            <option value="Lifestyle">Lifestyle</option>
+            <option value="Education">Education</option>
+            <option value="Motorcycle">Motorcycle</option>
+        </select>
+
+        <button type="submit">Filter</button>
+
+    </form>
+    <h2>All Posts</h2>
+
+    <% posts.forEach((post, index) => { %>
+
+        <% if (selectedCategory === "All" || post.category === selectedCategory) { %>
+
+            <div class="post">
+
+                <h3><%= post.title %></h3>
+
+                <p>
+                    <strong>By:</strong> <%= post.creator %>
+                </p>
+
+                <p>
+                    <strong>Category:</strong> <%= post.category %>
+                </p>
+
+                <p>
+                    <strong>Created:</strong> <%= post.createdAt %>
+                </p>
+
+                <p><%= post.content %></p>
+
+                <a href="/edit/<%= index %>">Edit</a>
+
+                <form action="/delete/<%= index %>" method="POST">
+                    <button type="submit">Delete</button>
+                </form>
+
+            </div>
+
+        <% } %>
+
+    <% }) %>
+
+</body>
+
+</html>
